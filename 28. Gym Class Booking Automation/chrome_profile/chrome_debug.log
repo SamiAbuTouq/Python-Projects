@@ -1,0 +1,22 @@
+[10476:16932:0829/154555.475:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:202] No machine level policy manager exists.
+[18036:10608:0829/154555.628:INFO:third_party\webrtc\rtc_base\cpu_info.cc:88] Available number of cores: 8
+[6092:18564:0829/154555.629:INFO:third_party\webrtc\rtc_base\cpu_info.cc:88] Available number of cores: 8
+[6244:22604:0829/154556.050:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
+[19348:24712:0829/154556.251:INFO:third_party\webrtc\rtc_base\cpu_info.cc:88] Available number of cores: 8
+[10476:16932:0829/154556.412:INFO:CONSOLE:1] "Test data already exists", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.426:INFO:CONSOLE:1] "Data initialization result: [object Object]", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.426:INFO:CONSOLE:1] "Users in DB: 24 [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.426:INFO:CONSOLE:1] "Classes in DB: 96", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.426:INFO:CONSOLE:1] "Bookings in DB: 2 [object Object],[object Object]", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.427:INFO:CONSOLE:1] "Database initialized! Available commands:", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.427:INFO:CONSOLE:1] "  await window.db.getAll("users")", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.427:INFO:CONSOLE:1] "  await window.db.getAll("classes")", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.427:INFO:CONSOLE:1] "  await window.db.getAll("bookings")", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.427:INFO:CONSOLE:1] "  await window.testData.resetAllData() - Reset all data", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154556.594:INFO:CONSOLE:0] "[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o", source: https://appbrewery.github.io/gym/login/ (0)
+[10476:16932:0829/154556.711:INFO:CONSOLE:1] "Loading...", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:16932:0829/154557.452:INFO:CONSOLE:1] "Login failed Error: Network request failed. Please try again.", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:24884:0829/154558.924:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[10476:16932:0829/154559.971:INFO:CONSOLE:1] "Loading...", source: https://appbrewery.github.io/gym/_next/static/chunks/pages/index-d263818a138e725c.js (1)
+[10476:24884:0829/154627.532:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[10476:24884:0829/154721.150:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT

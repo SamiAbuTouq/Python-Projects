@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Rating - My Book Collection{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>Edit Book Rating
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="book-info mb-4 p-3 bg-light rounded">
+                    <h5 class="mb-2">{{ book.title }}</h5>
+                    <p class="mb-0 text-muted">by {{ book.author }}</p>
+                </div>
+                
+                <form method="POST">
+                    <input type="hidden" name="id" value="{{ book.id }}">
+                    
+                    <div class="mb-4">
+                        <label for="rating" class="form-label fw-bold">New Rating</label>
+                        <select class="form-select form-select-lg" id="rating" name="rating" required>
+                            {% for i in range(1, 6) %}
+                                <option value="{{ i }}" {% if i == book.rating %}selected{% endif %}>
+                                    {{ i }} - {{ ['Poor', 'Fair', 'Average', 'Good', 'Excellent'][i-1] }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text">Current rating: {{ "%.1f"|format(book.rating) }}</div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-arrow-left me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i>Update Rating
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
