@@ -1,0 +1,27 @@
+<div class="resultbar">
+  <p><b>{{ cafes|length }}</b> of {{ total }} cafes</p>
+</div>
+<div class="grid">
+  {% for c in cafes %}
+  <article class="card" data-id="{{ c.id }}">
+    <a class="img" href="{{ url_for('cafe_detail', cafe_id=c.id) }}">
+      <img src="{{ c.img_url }}" alt="" loading="lazy" referrerpolicy="no-referrer" data-fallback="{{ fallback_img(c.id) }}"><span class="ph" aria-hidden="true">{{ c.name[:1] }}</span>
+      <span class="price">{{ c.coffee_price or '—' }}</span>
+    </a>
+    <div class="body">
+      <p class="loc">📍 {{ c.location }}</p>
+      <h2><a href="{{ url_for('cafe_detail', cafe_id=c.id) }}">{{ c.name }}</a></h2>
+      <p class="seats">💺 {{ c.seats }} seats</p>
+      <div class="badges">{% include "_badges.html" %}</div>
+      <div class="actions">
+        <span class="links"><a href="{{ c.map_url }}" target="_blank" rel="noopener">Map ↗</a><a class="muted" href="{{ url_for('edit_cafe', cafe_id=c.id) }}">✏️ Edit</a></span>
+        <form method="post" action="{{ url_for('delete_cafe', cafe_id=c.id) }}" data-confirm="Remove “{{ c.name }}”? This can't be undone." data-name="{{ c.name }}">
+          <button class="link danger" type="submit">Report closed</button>
+        </form>
+      </div>
+    </div>
+  </article>
+  {% else %}
+  <div class="empty"><p class="big">😔</p><p>No cafes match those filters.</p><button class="btn" type="button" data-reset>Reset filters</button></div>
+  {% endfor %}
+</div>

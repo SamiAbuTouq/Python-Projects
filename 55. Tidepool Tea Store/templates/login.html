@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Log in · Tidepool Tea{% endblock %}
+{% block content %}
+<section class="auth">
+  <div class="auth-side">
+    <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="90" fill="#FFBE3D"/><path d="M8 112c24-30 42 30 92 0s68 30 92 0v88H8z" fill="#10302E"/><path d="M8 140c24-26 42 24 92 0s68 24 92 0v60H8z" fill="#173C3A"/></svg>
+    <h2>Good to see you again.</h2>
+    <p>Log in to check out and see your past orders.</p>
+  </div>
+  <div class="auth-form">
+    <h1>Log in</h1>
+    <form method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label>Email<input type="email" name="email" value="{{ email or '' }}" autocomplete="email" required autofocus></label>
+      <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+      <label class="check"><input type="checkbox" name="remember"> Keep me logged in</label>
+      <button class="btn btn-big full" type="submit">Log in</button>
+    </form>
+    <p class="alt">No account yet? <a href="{{ url_for('register', next=request.args.get('next')) }}">Create one</a>.</p>
+  </div>
+</section>
+{% endblock %}

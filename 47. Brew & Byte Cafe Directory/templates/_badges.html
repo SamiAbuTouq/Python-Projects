@@ -1,0 +1,3 @@
+{% for key, (label, icon) in amenities.items() %}
+  <span class="badge {{ 'on' if c[key] else 'off' }}" title="{{ label }}: {{ 'yes' if c[key] else 'no' }}">{{ icon }} {{ label }}</span>
+{% endfor %}

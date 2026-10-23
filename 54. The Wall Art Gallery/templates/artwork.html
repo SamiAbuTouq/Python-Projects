@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% from "_card.html" import piece %}
+{% block title %}{{ art.title if art else "Not found" }} · The Wall{% endblock %}
+{% block content %}
+{% if not art %}
+<main class="hang"><p class="notice">
+  {% if error %}This artwork could not be loaded right now.{% else %}That artwork is not in the public-domain collection.{% endif %}
+  <a href="{{ url_for('index') }}">Back to the wall</a>
+</p></main>
+{% else %}
+<main class="detail">
+  <a class="back" href="javascript:history.back()">Back</a>
+  <div class="spot">
+    <div class="spot-art">
+      <span class="mat big">
+        <img src="{{ art.large }}" alt="{{ art.alt }}" onload="this.classList.add('in')"
+             onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'notice',textContent:'This image could not be loaded.'}))">
+      </span>
+      <a class="fullsize" href="{{ art.full }}" target="_blank" rel="noopener">Open full-size image</a>
+    </div>
+    <article class="card-info">
+      <h1>{{ art.title }}</h1>
+      <p class="by">{{ art.artist }}</p>
+      {% if art.date %}<p class="when">{{ art.date }}</p>{% endif %}
+      {% if art.about %}<p class="about">{{ art.about }}</p>{% endif %}
+      <dl class="facts">
+        {% for k, v in art.facts %}<dt>{{ k }}</dt><dd>{{ v }}</dd>{% endfor %}
+      </dl>
+    </article>
+  </div>
+  {% if more %}
+  <section class="more">
+    <h2>More by this artist</h2>
+    <div class="wall small">{% for w in more %}{{ piece(w) }}{% endfor %}</div>
+  </section>
+  {% endif %}
+</main>
+{% endif %}
+{% endblock %}

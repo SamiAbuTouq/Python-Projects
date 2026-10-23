@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ c.name }}{% endblock %}
+{% block content %}
+<main class="detail">
+  <a class="back" href="{{ url_for('home') }}">← All cafes</a>
+  <div class="split">
+    <div class="photo"><img src="{{ c.img_url }}" alt="" referrerpolicy="no-referrer" data-fallback="{{ fallback_img(c.id) }}"><span class="ph" aria-hidden="true">{{ c.name[:1] }}</span></div>
+    <div>
+      <p class="loc">📍 {{ c.location }}</p>
+      <h1>{{ c.name }}</h1>
+      <dl class="facts">
+        <div><dt>Flat white</dt><dd>{{ c.coffee_price or '—' }}</dd></div>
+        <div><dt>Seats</dt><dd>{{ c.seats }}</dd></div>
+      </dl>
+      <div class="badges big">{% include "_badges.html" %}</div>
+      <div class="cta">
+        <a class="btn" href="{{ c.map_url }}" target="_blank" rel="noopener">Open in Google Maps ↗</a>
+        <a class="btn ghost" href="{{ url_for('edit_cafe', cafe_id=c.id) }}">✏️ Edit</a>
+        <form method="post" action="{{ url_for('delete_cafe', cafe_id=c.id) }}" data-confirm="Remove “{{ c.name }}”? This can't be undone.">
+          <button class="btn ghost danger" type="submit">Report closed</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

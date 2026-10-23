@@ -1,0 +1,15 @@
+{% macro piece(w) %}
+<figure class="piece">
+  <a class="frame" href="{{ url_for('artwork', art_id=w.id) }}" aria-label="{{ w.title }}">
+    <span class="mat" style="aspect-ratio: {{ w.ratio }};{% if w.lqip %} background-image:url({{ w.lqip }});{% endif %}">
+      <img src="{{ w.src }}" alt="{{ w.alt }}" loading="lazy"
+           onload="this.classList.add('in')" onerror="this.closest('.mat').classList.add('missing')">
+    </span>
+  </a>
+  <figcaption class="plate">
+    <span class="plate-title">{{ w.title }}</span>
+    <span class="plate-artist">{{ w.artist }}</span>
+    {% if w.date %}<span class="plate-date">{{ w.date }}</span>{% endif %}
+  </figcaption>
+</figure>
+{% endmacro %}

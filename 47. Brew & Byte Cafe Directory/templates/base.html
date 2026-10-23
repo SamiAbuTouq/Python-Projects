@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Brew & Byte{% endblock %} · London laptop-friendly cafes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{{ url_for('home') }}"><span class="cup">☕</span> Brew<span>&amp;</span>Byte</a>
+    <nav>
+      <a href="{{ url_for('home') }}">Cafes</a>
+      <a href="{{ url_for('random_cafe') }}">🎲 Surprise me</a>
+      <a class="btn small" href="{{ url_for('add_cafe') }}">+ Add a cafe</a>
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flashes" id="server-flashes">
+      {% for cat, msg in messages %}<div class="flash {{ cat }}">{{ msg }}</div>{% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+
+  <dialog id="confirm">
+    <form method="dialog">
+      <h3>Are you sure?</h3>
+      <p id="confirm-msg"></p>
+      <div class="dlg-actions">
+        <button class="btn ghost" value="cancel">Cancel</button>
+        <button class="btn danger-fill" value="ok">Yes, remove</button>
+      </div>
+    </form>
+  </dialog>
+  <div id="toasts" class="flashes"></div>
+
+  <footer>Built with Flask &amp; SQLite · Day 66 → Day 67 · Wi-Fi not guaranteed to be fast, coffee guaranteed to be hot.</footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

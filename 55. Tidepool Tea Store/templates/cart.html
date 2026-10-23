@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% from "_macros.html" import art with context %}
+{% block title %}Your cart · Tidepool Tea{% endblock %}
+{% block content %}
+<section class="wrap cart-page" data-shop-url="{{ url_for('index') }}#shop">
+  <h1>Your cart</h1>
+  {% if lines %}
+  <div class="cart-grid">
+    <div class="lines">
+      {% for l in lines %}
+      <div class="line" data-line="{{ l.product.id }}" style="--c: {{ l.product.color }}">
+        <a class="thumb" href="{{ url_for('product', slug=l.product.slug) }}">{{ art(l.product) }}</a>
+        <div class="line-main">
+          <h3><a href="{{ url_for('product', slug=l.product.slug) }}">{{ l.product.name }}</a></h3>
+          <p>{{ l.product.price_cents|money }} each</p>
+          <form class="js-cart" data-action="remove" method="post" action="{{ url_for('cart_remove', product_id=l.product.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="linklike small" type="submit">Remove</button>
+          </form>
+        </div>
+        <form class="stepper js-cart" data-action="update" method="post" action="{{ url_for('cart_update', product_id=l.product.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button name="qty" value="{{ l.qty - 1 }}" data-delta="-1" aria-label="Decrease quantity of {{ l.product.name }}">−</button>
+          <output data-qty>{{ l.qty }}</output>
+          <button name="qty" value="{{ l.qty + 1 }}" data-delta="1" aria-label="Increase quantity of {{ l.product.name }}">+</button>
+        </form>
+        <div class="line-total" data-total>{{ l.total|money }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <aside class="summary">
+      <h2>Order summary</h2>
+      <div class="ship-meter" id="ship-meter">
+        {% if t.to_free %}
+          <p>Add <strong>{{ t.to_free|money }}</strong> more for free shipping.</p>
+        {% else %}
+          <p><strong>You've unlocked free shipping.</strong></p>
+        {% endif %}
+        <div class="bar-track"><div class="bar-fill" id="bar-fill" style="width: {{ t.progress }}%"></div></div>
+      </div>
+      <dl class="totals">
+        <div><dt>Subtotal</dt><dd id="sum-subtotal">{{ t.subtotal|money }}</dd></div>
+        <div><dt>Shipping</dt><dd id="sum-shipping">{{ 'Free' if t.shipping == 0 else t.shipping|money }}</dd></div>
+        <div class="grand"><dt>Total</dt><dd id="sum-total">{{ t.total|money }}</dd></div>
+      </dl>
+      {% if current_user.is_authenticated %}
+      <form method="post" action="{{ url_for('checkout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-big full" type="submit">Pay with Stripe</button>
+      </form>
+      {% else %}
+      <a class="btn btn-big full" href="{{ url_for('login', next=url_for('cart')) }}">Log in to check out</a>
+      <p class="hint">New here? <a href="{{ url_for('register', next=url_for('cart')) }}">Create an account</a>. Your cart will wait for you.</p>
+      {% endif %}
+    </aside>
+  </div>
+  {% else %}
+  <div class="empty">
+    <h3>Your cart is empty.</h3>
+    <p>Pick something warm from the <a href="{{ url_for('index') }}#shop">shop</a>.</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

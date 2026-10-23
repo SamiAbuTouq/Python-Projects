@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from "_macros.html" import art, card with context %}
+{% block title %}{{ p.name }} · Tidepool Tea{% endblock %}
+{% block content %}
+<section class="wrap pdp" style="--c: {{ p.color }}">
+  <div class="pdp-art">{{ art(p, "big") }}</div>
+  <div class="pdp-info">
+    <p class="crumb"><a href="{{ url_for('index', category=p.category) }}#shop">{{ 'Tea' if p.category == 'tea' else 'Gear' }}</a></p>
+    <h1>{{ p.name }}</h1>
+    <p class="lede">{{ p.tagline }}</p>
+    <p class="price big-price">{{ p.price_cents|money }}</p>
+    <p>{{ p.description }}</p>
+
+    <dl class="facts">
+      <div><dt>{{ 'Origin' if p.category == 'tea' else 'Made' }}</dt><dd>{{ p.origin }}</dd></div>
+      <div><dt>{{ 'Steep' if p.category == 'tea' else 'Size' }}</dt><dd>{{ p.steep }}</dd></div>
+      <div><dt>{{ 'Tastes like' if p.category == 'tea' else 'Details' }}</dt><dd>{{ p.tasting }}</dd></div>
+    </dl>
+
+    <form class="buy js-add" method="post" action="{{ url_for('cart_add', product_id=p.id) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label class="qty-pick">
+        <span class="sr">Quantity</span>
+        <select name="qty">{% for n in range(1, 11) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}</select>
+      </label>
+      <button class="btn btn-big" type="submit">Add to cart</button>
+    </form>
+  </div>
+</section>
+
+{% if related %}
+<section class="wrap related">
+  <h2>You might also like</h2>
+  <div class="grid">{% for r in related %}{{ card(r) }}{% endfor %}</div>
+</section>
+{% endif %}
+{% endblock %}

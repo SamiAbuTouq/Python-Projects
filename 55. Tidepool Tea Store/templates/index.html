@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% from "_macros.html" import card with context %}
+{% block content %}
+{% if not category and not q %}
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1>Tea worth slowing down for.</h1>
+      <p>Loose leaf from small farms in Japan, China and Sri Lanka, plus the cups and pots to brew it in. Packed fresh and sent to your door.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#shop">Shop the collection</a>
+        <a class="btn btn-ghost" href="{{ url_for('index', category='gear') }}#shop">Brewing gear</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="sun"></div>
+      <svg viewBox="0 0 320 340" class="hero-cup">
+        <g class="steam" fill="none" stroke="#CFE6DA" stroke-width="7" stroke-linecap="round">
+          <path class="s1" d="M120 92c-16-20 16-34 0-54"/>
+          <path class="s2" d="M160 86c-18-24 18-40 0-64"/>
+          <path class="s3" d="M200 92c-16-20 16-34 0-54"/>
+        </g>
+        <ellipse cx="160" cy="316" rx="124" ry="14" fill="#000" opacity=".25"/>
+        <path d="M250 150h26a32 32 0 0 1 0 64h-34" fill="none" stroke="#FFBE3D" stroke-width="18" stroke-linecap="round"/>
+        <path d="M58 118h204v76a102 102 0 0 1-204 0z" fill="#FFBE3D"/>
+        <ellipse cx="160" cy="118" rx="102" ry="16" fill="#C97A1E"/>
+        <ellipse cx="160" cy="118" rx="90" ry="11" fill="#8F4B12"/>
+        <path d="M58 168h204" stroke="#10302E" stroke-width="8" opacity=".85"/>
+        <path d="M84 132v62" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".35"/>
+        <ellipse cx="160" cy="298" rx="116" ry="16" fill="#CFE6DA"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="promise">
+  <div class="wrap">
+    <p><strong>Packed within a week of roasting.</strong> Most tea sits in warehouses for months. Ours goes from blender to tin to your door in days.</p>
+    <p><strong>Free shipping over {{ free_from|money }}.</strong> Otherwise a flat $5. No subscriptions, no tricks.</p>
+    <p><strong>Pay safely.</strong> Checkout is handled by Stripe, so your card never touches our server.</p>
+  </div>
+</section>
+{% endif %}
+
+<section class="shop wrap" id="shop">
+  <div class="shop-head">
+    <h2>{% if category == 'tea' %}Loose leaf tea{% elif category == 'gear' %}Brewing gear{% elif q %}Results for “{{ q }}”{% else %}Everything we sell{% endif %}</h2>
+    <div class="tools">
+      <nav class="chips" aria-label="Filter products">
+        <a href="{{ url_for('index') }}#shop" class="{{ 'on' if not category }}">All</a>
+        <a href="{{ url_for('index', category='tea') }}#shop" class="{{ 'on' if category == 'tea' }}">Tea</a>
+        <a href="{{ url_for('index', category='gear') }}#shop" class="{{ 'on' if category == 'gear' }}">Gear</a>
+      </nav>
+      <form class="search" method="get" action="{{ url_for('index') }}#shop" role="search">
+        {% if category %}<input type="hidden" name="category" value="{{ category }}">{% endif %}
+        <input type="search" name="q" value="{{ q }}" placeholder="Search tea or gear" aria-label="Search products">
+      </form>
+    </div>
+  </div>
+
+  {% if products %}
+  <div class="grid">{% for p in products %}{{ card(p) }}{% endfor %}</div>
+  {% else %}
+  <div class="empty">
+    <h3>Nothing matched that search.</h3>
+    <p>Try a different word, or <a href="{{ url_for('index') }}#shop">browse everything</a>.</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

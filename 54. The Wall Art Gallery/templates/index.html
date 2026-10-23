@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "_card.html" import piece %}
+{% block title %}{{ q }} · The Wall{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Walk the wall.</h1>
+  <p class="lede">Search public-domain paintings, prints and objects from one of the world's great museums.</p>
+  <form class="search" action="{{ url_for('index') }}" method="get" role="search">
+    <input type="search" name="q" value="{{ q }}" placeholder="Try Monet, cats, samurai, blue…" aria-label="Search artworks" autocomplete="off">
+    <button type="submit">Search</button>
+  </form>
+  <nav class="topics" aria-label="Browse by topic">
+    {% for t in topics %}
+      <a href="{{ url_for('index', q=t) }}" {% if t|lower == q|lower %}aria-current="true"{% endif %}>{{ t }}</a>
+    {% endfor %}
+  </nav>
+</section>
+
+<main class="hang">
+  {% if error %}
+    <p class="notice">{{ error }}</p>
+  {% elif not works %}
+    <p class="notice">No public-domain works matched “{{ q }}”. Try a broader word, like an artist or a color.</p>
+  {% else %}
+    <p class="count">{{ "{:,}".format(total) }} works for “{{ q }}”</p>
+    <div class="wall">
+      {% for w in works %}{{ piece(w) }}{% endfor %}
+    </div>
+    {% if total_pages > 1 %}
+    <nav class="pager" aria-label="Pages">
+      {% if page > 1 %}<a href="{{ url_for('index', q=q, page=page-1) }}">Previous</a>{% else %}<span></span>{% endif %}
+      <span>Page {{ page }} of {{ total_pages }}</span>
+      {% if page < total_pages %}<a href="{{ url_for('index', q=q, page=page+1) }}">Next</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+  {% endif %}
+</main>
+{% endblock %}

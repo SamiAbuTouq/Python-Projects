@@ -1,0 +1,47 @@
+{# Product artwork is drawn in SVG so the store needs no image files. #}
+{% macro art(p, class="") %}
+<svg class="art {{ class }}" viewBox="0 0 200 240" role="img" aria-label="{{ p.name }}">
+  <ellipse cx="100" cy="222" rx="68" ry="9" fill="#0C1B1A" opacity=".14"/>
+  {% if p.shape == "cup" %}
+    <path d="M155 104h16a20 20 0 0 1 0 40h-20" fill="none" stroke="{{ p.color }}" stroke-width="12" stroke-linecap="round"/>
+    <path d="M42 84h116v46a58 58 0 0 1-116 0z" fill="{{ p.color }}"/>
+    <path d="M42 112h116" stroke="{{ p.accent }}" stroke-width="6" opacity=".85"/>
+    <path d="M56 92v40" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".28"/>
+    <ellipse cx="100" cy="206" rx="70" ry="10" fill="{{ p.accent }}" opacity=".9"/>
+  {% elif p.shape == "pot" %}
+    <path d="M150 112c30-4 40-24 36-44-6 18-18 26-38 30z" fill="{{ p.color }}"/>
+    <path d="M52 108c-32-2-38 26-26 42 8 10 20 12 32 10" fill="none" stroke="{{ p.color }}" stroke-width="11" stroke-linecap="round"/>
+    <ellipse cx="100" cy="146" rx="62" ry="58" fill="{{ p.color }}" opacity=".92"/>
+    <ellipse cx="100" cy="96" rx="40" ry="9" fill="{{ p.accent }}"/>
+    <circle cx="100" cy="80" r="9" fill="{{ p.accent }}"/>
+    <path d="M62 130c-4 18 0 34 12 46" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".3"/>
+    <rect x="82" y="124" width="36" height="46" rx="8" fill="{{ p.accent }}" opacity=".35"/>
+  {% else %}
+    <rect x="46" y="22" width="108" height="34" rx="9" fill="{{ p.accent }}"/>
+    <rect x="40" y="48" width="120" height="164" rx="14" fill="{{ p.color }}"/>
+    <rect x="40" y="96" width="120" height="76" fill="{{ p.accent }}"/>
+    <rect x="52" y="58" width="8" height="144" rx="4" fill="#fff" opacity=".22"/>
+    <text x="100" y="140" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="700" font-size="{{ 22 if p.mark|length <= 7 else 18 }}" fill="{{ p.color }}">{{ p.mark }}</text>
+    <text x="100" y="158" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-size="10" fill="{{ p.color }}" opacity=".8">loose leaf tea</text>
+  {% endif %}
+</svg>
+{% endmacro %}
+
+{% macro card(p) %}
+<article class="card" style="--c: {{ p.color }}">
+  <a class="card-art" href="{{ url_for('product', slug=p.slug) }}" aria-label="View {{ p.name }}">
+    {{ art(p) }}
+  </a>
+  <div class="card-body">
+    <h3><a href="{{ url_for('product', slug=p.slug) }}">{{ p.name }}</a></h3>
+    <p>{{ p.tagline }}</p>
+    <div class="card-foot">
+      <span class="price">{{ p.price_cents|money }}</span>
+      <form class="js-add" method="post" action="{{ url_for('cart_add', product_id=p.id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-small" type="submit">Add to cart</button>
+      </form>
+    </div>
+  </div>
+</article>
+{% endmacro %}

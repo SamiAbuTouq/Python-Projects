@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero wrap">
+  <div class="hero-text">
+    <h1>{{ profile.headline }}</h1>
+    <p class="lead">{{ profile.sub }}</p>
+    <p class="status">{{ profile.status }}</p>
+    <div class="actions">
+      <a class="btn" href="#work">See my work</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+<pre class="code" aria-label="A Python class describing the developer"><code><span class="k">class</span> <span class="f">Developer</span>:
+    name = <span class="s">"{{ profile.name }}"</span>
+    base = <span class="s">"{{ profile.location }}"</span>
+    stack = [
+{%- for s in profile.code_stack %}
+        <span class="s">"{{ s }}"</span>,
+{%- endfor %}
+    ]
+
+    <span class="k">def</span> <span class="f">build</span>(self, problem):
+        <span class="k">return</span> self.stack.ship(problem)</code></pre>
+</section>
+
+<section id="work" class="wrap block">
+  {% macro rows(items) %}
+  <ul class="rows">
+    {% for p in items %}
+    <li class="row">
+      <h3>{% if p.link %}<a href="{{ p.link }}">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</h3>
+      <p>{{ p.what }}</p>
+      <ul class="tags">{% for t in p.stack %}<li>{{ t }}</li>{% endfor %}</ul>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endmacro %}
+  <h2>Selected work</h2>
+  {{ rows(projects) }}
+  <h2 class="sub">More projects</h2>
+  {{ rows(more) }}
+</section>
+
+<section id="skills" class="wrap block">
+  <h2>Skills</h2>
+  <div class="skills">
+    {% for group, items in skills.items() %}
+    <div>
+      <h3>{{ group }}</h3>
+      <ul class="tags">{% for s in items %}<li>{{ s }}</li>{% endfor %}</ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="path" class="wrap block">
+  <h2>Path so far</h2>
+  <ol class="timeline">
+    {% for when, what in path %}
+    <li><time>{{ when }}</time><p>{{ what }}</p></li>
+    {% endfor %}
+  </ol>
+</section>
+
+<section id="credentials" class="wrap block">
+  <h2>Certifications</h2>
+  <ul class="rows">
+    {% for c in certs %}
+    <li class="row">
+      <h3>{{ c.name }}</h3>
+      <p>{{ c.org }}, {{ c.date }}.{% if c.link %} <a href="{{ c.link }}">View credential</a>{% endif %}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  <h2 class="sub">Volunteering</h2>
+  <ul class="rows">
+    {% for v in volunteering %}
+    <li class="row"><h3>{{ v.name }}</h3><p>{{ v.when }}. {{ v.what }}</p></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section id="contact" class="wrap block contact">
+  <div>
+    <h2>Let’s talk</h2>
+    <p class="lead">Have a project, a role or a question? Send a message or write to
+      <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>.</p>
+    <p class="links">{% for label, url in profile.links %}<a href="{{ url }}">{{ label }}</a>{% endfor %}</p>
+  </div>
+  <form method="post" action="{{ url_for('contact') }}">
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+      {% for cat, msg in msgs %}<p class="flash {{ cat }}" role="status">{{ msg }}</p>{% endfor %}
+    {% endwith %}
+    <label>Name <input name="name" required autocomplete="name"></label>
+    <label>Email <input name="email" type="email" required autocomplete="email"></label>
+    <label>Message <textarea name="message" rows="5" required></textarea></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn" type="submit">Send message</button>
+  </form>
+</section>
+{% endblock %}

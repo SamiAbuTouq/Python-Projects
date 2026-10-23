@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">London · laptop-friendly</p>
+  <h1>Find your next <em>work-from-cafe</em> spot.</h1>
+  <p class="lede">Wi-Fi, sockets, seats and the price of a flat white — all in one place.</p>
+  <div class="stats">
+    <div><b data-stat="count">{{ stats.count }}</b><span>cafes</span></div>
+    <div><b data-stat="areas">{{ stats.areas }}</b><span>neighbourhoods</span></div>
+    <div><b data-stat="avg">{{ stats.avg }}</b><span>avg. coffee</span></div>
+    <div><b data-stat="wifi">{{ stats.wifi }}</b><span>with Wi-Fi</span></div>
+  </div>
+</section>
+
+<div class="filterwrap"><form class="filters" method="get" id="filters" autocomplete="off">
+  <div class="row">
+    <input type="search" name="q" value="{{ q }}" placeholder="Search by name or area…">
+    <select name="loc">
+      <option value="">All areas</option>
+      {% for l in locations %}<option value="{{ l }}" {{ 'selected' if l == loc }}>{{ l }}</option>{% endfor %}
+    </select>
+    <select name="sort">
+      <option value="name" {{ 'selected' if sort=='name' }}>Sort: A → Z</option>
+      <option value="cheapest" {{ 'selected' if sort=='cheapest' }}>Sort: cheapest coffee</option>
+      <option value="biggest" {{ 'selected' if sort=='biggest' }}>Sort: most seats</option>
+    </select>
+    <button class="btn ghost reset" type="button" data-reset>Reset</button>
+  </div>
+  <div class="chips">
+    {% for key, (label, icon) in amenities.items() %}
+    <label class="chip"><input type="checkbox" name="{{ key }}" value="1" {{ 'checked' if key in wanted }}><span>{{ icon }} {{ label }}</span></label>
+    {% endfor %}
+  </div>
+</form></div>
+
+<main class="results" id="results" aria-live="polite">
+  {% include "_results.html" %}
+</main>
+{% endblock %}

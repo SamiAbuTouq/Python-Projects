@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swatchbook – find the top 10 colours in any image</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Drop in an image.<br>Get its ten main colours.</h1>
+      <p class="lede">Swatchbook counts every pixel and lists the shades that appear most, with HEX codes ready to copy into your CSS or design tool.</p>
+    </header>
+
+    <main>
+      <section class="left" aria-label="Image">
+        <label class="drop" id="drop" for="file" tabindex="0">
+          <input type="file" id="file" accept="image/*" hidden>
+          <div class="drop-empty" id="dropEmpty">
+            <span class="drop-title">Drag an image here</span>
+            <span class="drop-sub">or click to browse · PNG, JPG, WebP, GIF up to 10 MB</span>
+          </div>
+          <img id="preview" alt="Your uploaded image" hidden>
+        </label>
+        <button class="ghost" id="again" type="button" hidden>Choose another image</button>
+      </section>
+
+      <section class="right" aria-live="polite">
+        <div class="status" id="status">Your palette will appear here.</div>
+        <ol class="rows" id="rows"></ol>
+        <div class="actions" id="actions" hidden>
+          <button class="solid" id="copyCss" type="button">Copy as CSS variables</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

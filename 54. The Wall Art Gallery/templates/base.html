@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}The Wall{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <noscript><style>.piece img{opacity:1}</style></noscript>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="{{ url_for('index') }}">The Wall</a>
+    <span class="credit">Open collection of the Art Institute of Chicago</span>
+  </header>
+  {% block content %}{% endblock %}
+  <footer class="foot">
+    Images and data from the <a href="https://api.artic.edu/docs/" target="_blank" rel="noopener">Art Institute of Chicago API</a>.
+    Every work shown is in the public domain.
+  </footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

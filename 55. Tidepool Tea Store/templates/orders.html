@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Your orders · Tidepool Tea{% endblock %}
+{% block content %}
+<section class="wrap orders-page">
+  <h1>Your orders</h1>
+  {% for o in orders %}
+  <article class="order">
+    <header>
+      <div><h3>Order #{{ o.id }}</h3><p>{{ o.created_at.strftime('%b %d, %Y') }}</p></div>
+      <span class="pill">{{ o.status|capitalize }}</span>
+      <strong>{{ o.total_cents|money }}</strong>
+    </header>
+    <ul>
+      {% for i in o.items %}<li><span>{{ i.qty }} × {{ i.name }}</span><span>{{ i.total_cents|money }}</span></li>{% endfor %}
+      <li class="muted"><span>Shipping</span><span>{{ 'Free' if o.shipping_cents == 0 else o.shipping_cents|money }}</span></li>
+    </ul>
+    {% if o.ship_to %}<p class="ship">Shipping to {{ o.ship_to }}</p>{% endif %}
+  </article>
+  {% else %}
+  <div class="empty">
+    <h3>No orders yet.</h3>
+    <p>When you buy something, it shows up here. <a href="{{ url_for('index') }}#shop">Start shopping</a>.</p>
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}
