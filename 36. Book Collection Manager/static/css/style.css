@@ -1,87 +1,70 @@
 /* ==========================================================================
-   📚 THE ATHENAEUM - Classic Warm Editorial / Dark Wood & Amber Theme
-   Aesthetic, Luxurious & Literary Design System for Book Collection Manager
+   📚 THE ATHENAEUM — Classic Library Theme (Dark Wood & Amber)
+   Warm Editorial — Refined & Professional
    ========================================================================== */
 
 :root {
-  /* Warm Library Color Palette */
-  --bg-main: #14110f;
-  --bg-surface: #1e1915;
-  --bg-card: #27211b;
-  --bg-card-hover: #312922;
-  --bg-card-glass: rgba(39, 33, 27, 0.85);
-  --bg-input: #1a1612;
+  --bg-main:        #111009;
+  --bg-surface:     #1a1812;
+  --bg-table:       #1c1a13;
+  --bg-table-row:   #1f1c14;
+  --bg-table-hover: #262010;
+  --bg-card:        #201d15;
+  --bg-input:       #17150f;
 
-  /* Rich Accents */
-  --amber-primary: #d97706;
-  --amber-light: #f59e0b;
-  --amber-dark: #b45309;
-  --amber-glow: rgba(245, 158, 11, 0.25);
-  
-  --gold-accent: #eab308;
-  --gold-subtle: rgba(234, 179, 8, 0.15);
+  --amber:          #d97706;
+  --amber-light:    #f59e0b;
+  --amber-bright:   #fbbf24;
+  --amber-dark:     #b45309;
+  --amber-glow:     rgba(245, 158, 11, 0.22);
+  --amber-subtle:   rgba(217, 119, 6, 0.12);
 
-  --wood-warm: #452b1e;
-  --wood-border: rgba(217, 119, 6, 0.22);
-  --wood-border-hover: rgba(245, 158, 11, 0.5);
+  --gold:           #eab308;
+  --gold-dim:       rgba(234, 179, 8, 0.18);
 
-  /* Typography Colors */
-  --text-main: #f5f0e8;
-  --text-cream: #eedbc5;
-  --text-muted: #b8a896;
-  --text-dim: #7d6f62;
+  --border:         rgba(217, 119, 6, 0.18);
+  --border-hover:   rgba(245, 158, 11, 0.45);
 
-  /* Semantic Colors */
-  --danger-crimson: #ef4444;
-  --danger-glow: rgba(239, 68, 68, 0.2);
-  --danger-border: rgba(239, 68, 68, 0.35);
+  --text-white:     #f5f0e8;
+  --text-cream:     #e8d9c0;
+  --text-muted:     #9e8c76;
+  --text-dim:       #6a5c4a;
 
-  /* Elevation & Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
-  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(217, 119, 6, 0.1);
-  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --danger:         #ef4444;
+  --danger-subtle:  rgba(239, 68, 68, 0.12);
+  --danger-border:  rgba(239, 68, 68, 0.32);
 
-  /* Smooth Transitions */
-  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ==========================================================================
-   Base & Reset
+   Base
    ========================================================================== */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0;
-  padding: 0;
   min-height: 100vh;
-  background-color: var(--bg-main);
-  background-image: 
-    radial-gradient(circle at 15% 20%, rgba(217, 119, 6, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(180, 83, 9, 0.06) 0%, transparent 45%),
-    linear-gradient(rgba(20, 17, 15, 0.94), rgba(20, 17, 15, 0.98)),
-    radial-gradient(#2b221a 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+  background: var(--bg-main);
+  background-image:
+    radial-gradient(ellipse at 12% 18%, rgba(217,119,6,0.07) 0%, transparent 42%),
+    radial-gradient(ellipse at 88% 82%, rgba(180,83,9,0.05) 0%, transparent 48%);
   background-attachment: fixed;
-  color: var(--text-main);
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-cream);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Elegant Headings */
-h1, h2, h3, h4, h5, h6, 
-.navbar-brand,
-.book-title,
-.table thead th {
+/* Serif font for headings */
+h1, h2, h3, h4, h5, h6, .navbar-brand {
   font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
-  letter-spacing: 0.5px;
 }
 
 /* ==========================================================================
@@ -89,479 +72,513 @@ h1, h2, h3, h4, h5, h6,
    ========================================================================== */
 
 .navbar {
-  background: rgba(26, 22, 18, 0.88) !important;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--wood-border);
-  padding: 1rem 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  background: rgba(17, 16, 9, 0.92) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 0;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: var(--transition);
 }
 
 .navbar-brand {
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-cream) !important;
-  display: inline-flex;
+  letter-spacing: 0.8px;
+  display: flex;
   align-items: center;
+  gap: 0.6rem;
   transition: var(--transition);
 }
 
 .navbar-brand i {
   color: var(--amber-light);
-  font-size: 1.3rem;
-  filter: drop-shadow(0 0 8px var(--amber-glow));
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 7px var(--amber-glow));
   transition: var(--transition);
 }
 
-.navbar-brand:hover {
-  color: #ffffff !important;
-}
+.navbar-brand:hover { color: #fff !important; }
+.navbar-brand:hover i { transform: rotate(-8deg) scale(1.1); }
 
-.navbar-brand:hover i {
-  transform: rotate(-10deg) scale(1.1);
-}
-
+/* Add Book button */
 .nav-link {
   color: var(--text-cream) !important;
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.55rem 1.25rem !important;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.15rem !important;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(217, 119, 6, 0.35);
-  background: rgba(217, 119, 6, 0.1);
+  border: 1px solid var(--border-hover);
+  background: var(--amber-subtle);
   transition: var(--transition);
   display: inline-flex;
   align-items: center;
+  gap: 0.4rem;
 }
 
-.nav-link i {
-  color: var(--amber-light);
-  transition: var(--transition);
-}
+.nav-link i { color: var(--amber-light); transition: var(--transition); }
 
 .nav-link:hover {
-  background: linear-gradient(135deg, var(--amber-primary), var(--amber-dark));
-  color: #ffffff !important;
+  background: var(--amber);
   border-color: var(--amber-light);
-  box-shadow: 0 4px 15px var(--amber-glow);
+  color: #fff !important;
+  box-shadow: 0 4px 16px var(--amber-glow);
   transform: translateY(-2px);
 }
+.nav-link:hover i { color: #fff; transform: scale(1.1); }
 
-.nav-link:hover i {
-  color: #ffffff;
-  transform: scale(1.15);
+/* ==========================================================================
+   Container spacing
+   ========================================================================== */
+
+.container {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  animation: fadeUp 0.35s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ==========================================================================
-   Header & Statistics Bar
+   Collection Toolbar (count badge area)
    ========================================================================== */
 
-.page-header {
-  border-bottom: 1px solid rgba(217, 119, 6, 0.2);
-  padding-bottom: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-.page-title {
-  color: var(--text-cream);
-  font-weight: 700;
+.collection-toolbar {
   display: flex;
   align-items: center;
-  margin: 0;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
 }
 
-.page-title i {
-  color: var(--amber-light);
-  margin-right: 0.75rem;
-  filter: drop-shadow(0 2px 6px var(--amber-glow));
-}
-
-.badge.bg-primary {
-  background: linear-gradient(135deg, rgba(217, 119, 6, 0.2), rgba(180, 83, 9, 0.35)) !important;
-  color: var(--amber-light) !important;
-  border: 1px solid var(--wood-border);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 600;
-  padding: 0.6rem 1.15rem;
+.book-count-badge {
+  background: var(--amber-subtle);
+  border: 1px solid var(--border);
+  color: var(--amber-bright);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.45rem 1.1rem;
   border-radius: 30px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  letter-spacing: 0.3px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ==========================================================================
-   Table & Book List Styles
+   Book Table — Custom (no Bootstrap table styles)
    ========================================================================== */
 
-.table-responsive {
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--wood-border);
-  background: var(--bg-surface);
+.book-table-wrap {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--bg-table);
   overflow: hidden;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(245,158,11,0.06);
 }
 
-.table {
-  margin-bottom: 0;
-  color: var(--text-main);
-  border-collapse: separate;
-  border-spacing: 0;
-  background-color: transparent !important;
+.book-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.table thead.table-dark th {
-  background: #171310 !important;
+/* Table header */
+.book-table thead tr {
+  background: #0d0c08;
+  border-bottom: 1px solid var(--border);
+}
+
+.book-table thead th {
+  padding: 1.15rem 1.5rem;
   color: var(--amber-light);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.82rem;
-  letter-spacing: 1.5px;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--wood-border);
+  letter-spacing: 1.8px;
+  border: none;
 }
 
-.table tbody tr {
-  background: transparent;
+/* Table rows */
+.book-row {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: var(--bg-table-row);
   transition: var(--transition);
 }
 
-.table tbody tr td {
-  padding: 1.25rem 1.5rem;
+.book-row:last-child { border-bottom: none; }
+
+.book-row:hover {
+  background: var(--bg-table-hover);
+  box-shadow: inset 3px 0 0 var(--amber);
+}
+
+/* Table cells */
+.book-table td {
+  padding: 1.2rem 1.5rem;
   vertical-align: middle;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  color: var(--text-cream);
-  font-size: 0.98rem;
+  border: none;
 }
 
-.table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.table-hover tbody tr:hover {
-  background: rgba(217, 119, 6, 0.07) !important;
-  transform: translateX(4px);
-}
-
-.table tbody tr td.fw-bold {
+/* Book title */
+.book-title-text {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 600;
+  font-size: 1rem;
   color: #fff;
-  font-family: 'Cinzel', serif;
-  font-size: 1.08rem;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 }
 
-.author-name {
+/* Author */
+.author-label {
   color: var(--text-muted);
   font-style: italic;
+  font-size: 0.95rem;
   font-family: 'Georgia', serif;
 }
 
 /* ==========================================================================
-   Rating Stars
+   Rating Pill — Premium Design
    ========================================================================== */
 
-.rating-stars {
+.rating-pill {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  border: 1px solid rgba(234, 179, 8, 0.2);
+  gap: 0.65rem;
+  background: #0f0d08;
+  border: 1px solid rgba(234,179,8,0.22);
+  border-radius: 30px;
+  padding: 0.35rem 0.85rem 0.35rem 0.7rem;
 }
 
-.rating-stars i.fas.fa-star {
-  color: var(--gold-accent) !important;
-  filter: drop-shadow(0 0 5px rgba(234, 179, 8, 0.4));
-  font-size: 0.92rem;
+.stars-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
-.rating-stars i.far.fa-star {
-  color: rgba(255, 255, 255, 0.15) !important;
-  font-size: 0.92rem;
+.star {
+  font-size: 0.82rem;
 }
 
-.rating-stars small {
-  color: var(--amber-light) !important;
-  font-weight: 700;
-  margin-left: 0.5rem;
+.star.filled {
+  color: var(--gold);
+  filter: drop-shadow(0 0 4px rgba(234,179,8,0.5));
+}
+
+.star.empty {
+  color: #2e2a1a;
+}
+
+.rating-num {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--amber-bright);
+  border-left: 1px solid rgba(245,158,11,0.2);
+  padding-left: 0.55rem;
+  line-height: 1;
 }
 
-/* ===========================
+/* ==========================================================================
    Action Buttons
-   =========================== */
+   ========================================================================== */
 
-.btn-group {
-  gap: 0.5rem;
-}
+.book-actions-cell { display: flex; gap: 0.5rem; align-items: center; }
 
-.btn-outline-primary {
-  color: var(--amber-light);
-  border-color: rgba(217, 119, 6, 0.4);
-  background: rgba(217, 119, 6, 0.08);
-  border-radius: var(--radius-sm) !important;
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
   font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
   transition: var(--transition);
-  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.btn-outline-primary:hover {
-  background: var(--amber-primary);
-  border-color: var(--amber-primary);
-  color: #ffffff;
-  box-shadow: 0 4px 12px var(--amber-glow);
+.edit-btn {
+  color: var(--amber-light);
+  background: rgba(217, 119, 6, 0.1);
+  border-color: rgba(217, 119, 6, 0.28);
+}
+
+.edit-btn:hover {
+  color: #fff;
+  background: var(--amber);
+  border-color: var(--amber-light);
+  box-shadow: 0 4px 14px var(--amber-glow);
   transform: translateY(-2px);
 }
 
-.btn-outline-danger {
+.delete-btn {
   color: #f87171;
+  background: var(--danger-subtle);
   border-color: var(--danger-border);
-  background: rgba(239, 68, 68, 0.08);
-  border-radius: var(--radius-sm) !important;
-  font-weight: 600;
-  transition: var(--transition);
-  padding: 0.45rem 0.9rem;
 }
 
-.btn-outline-danger:hover {
-  background: var(--danger-crimson);
-  border-color: var(--danger-crimson);
-  color: #ffffff;
-  box-shadow: 0 4px 12px var(--danger-glow);
+.delete-btn:hover {
+  color: #fff;
+  background: var(--danger);
+  border-color: var(--danger);
+  box-shadow: 0 4px 14px rgba(239,68,68,0.25);
   transform: translateY(-2px);
 }
 
 /* ==========================================================================
-   Cards & Form Pages (Add & Edit)
+   Empty State
+   ========================================================================== */
+
+.empty-state {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--amber-subtle);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.empty-icon i {
+  color: var(--amber-light);
+  font-size: 2rem;
+  filter: drop-shadow(0 0 10px var(--amber-glow));
+}
+
+.empty-state h3 {
+  color: var(--text-cream);
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 380px;
+  margin: 0 auto 2rem;
+}
+
+.btn-add-first {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--amber-light);
+  box-shadow: 0 6px 20px var(--amber-glow);
+  transition: var(--transition);
+}
+
+.btn-add-first:hover {
+  color: #fff;
+  background: linear-gradient(135deg, var(--amber-light), var(--amber));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245,158,11,0.35);
+}
+
+/* ==========================================================================
+   Card Pages — Add & Edit
    ========================================================================== */
 
 .card {
   background: var(--bg-card) !important;
-  border: 1px solid var(--wood-border) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.55) !important;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
 .card-header {
-  border-bottom: 1px solid var(--wood-border) !important;
+  border-bottom: 1px solid var(--border) !important;
   padding: 1.5rem 2rem !important;
-  position: relative;
-}
-
-.card-header.bg-primary {
-  background: linear-gradient(135deg, #2b1f17 0%, #1c1510 100%) !important;
-  color: var(--text-cream) !important;
-}
-
-.card-header.bg-warning {
-  background: linear-gradient(135deg, #332313 0%, #1e160e 100%) !important;
-  color: var(--text-cream) !important;
+  background: #14120c !important;
 }
 
 .card-header h4 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 700;
   margin: 0;
   color: var(--text-cream);
   display: flex;
   align-items: center;
+  gap: 0.6rem;
 }
 
 .card-header h4 i {
   color: var(--amber-light);
-  margin-right: 0.75rem;
+  filter: drop-shadow(0 0 6px var(--amber-glow));
+}
+
+/* Override Bootstrap's bg-primary and bg-warning on card-header */
+.card-header.bg-primary,
+.card-header.bg-warning {
+  background: #14120c !important;
+  color: var(--text-cream) !important;
 }
 
 .card-body {
-  padding: 2.25rem 2rem !important;
-  background: var(--bg-card);
+  background: var(--bg-card) !important;
+  padding: 2rem !important;
 }
 
-/* Form Controls */
+/* Form */
 .form-label {
   color: var(--text-cream);
-  font-size: 0.92rem;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.3px;
+  font-size: 0.9rem;
   font-weight: 600;
+  margin-bottom: 0.4rem;
 }
 
 .form-control,
 .form-select {
   background-color: var(--bg-input) !important;
-  border: 1px solid rgba(217, 119, 6, 0.28) !important;
-  color: #ffffff !important;
+  border: 1px solid rgba(217,119,6,0.28) !important;
+  color: var(--text-white) !important;
   border-radius: var(--radius-md) !important;
-  padding: 0.85rem 1.15rem !important;
-  font-size: 1rem !important;
+  padding: 0.8rem 1.1rem !important;
+  font-size: 0.98rem !important;
   transition: var(--transition);
 }
 
-.form-control::placeholder {
-  color: var(--text-dim) !important;
-}
+.form-control::placeholder { color: var(--text-dim) !important; }
 
 .form-control:focus,
 .form-select:focus {
   border-color: var(--amber-light) !important;
   box-shadow: 0 0 0 4px var(--amber-glow) !important;
-  background-color: #1f1a15 !important;
+  background-color: #1a160f !important;
+  outline: none !important;
 }
 
 .form-select option {
-  background-color: #241d17;
-  color: #ffffff;
+  background-color: #1f1b12;
+  color: #fff;
 }
 
 .form-text {
   color: var(--text-muted) !important;
-  font-size: 0.85rem;
-  margin-top: 0.4rem;
+  font-size: 0.83rem;
+  margin-top: 0.35rem;
 }
 
-/* Book Info Box in Edit View */
+/* Book info box on edit page */
 .book-info {
-  background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(180, 83, 9, 0.05)) !important;
-  border: 1px solid var(--wood-border) !important;
+  background: rgba(217,119,6,0.1) !important;
+  border: 1px solid var(--border) !important;
   border-left: 4px solid var(--amber-light) !important;
   border-radius: var(--radius-md) !important;
-  padding: 1.25rem 1.5rem !important;
+  padding: 1.15rem 1.4rem !important;
 }
 
 .book-info h5 {
-  color: #ffffff;
+  color: #fff;
   font-family: 'Cinzel', serif;
-  font-weight: 700;
+  font-size: 1.1rem;
   margin-bottom: 0.25rem;
 }
 
 .book-info p {
   color: var(--amber-light) !important;
-  font-family: 'Georgia', serif;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  margin: 0 !important;
 }
 
-/* Primary Form Buttons */
-.btn-primary, 
+/* Form Buttons */
+.btn-primary,
 .btn-warning {
-  background: linear-gradient(135deg, var(--amber-primary) 0%, var(--amber-dark) 100%) !important;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dark)) !important;
   border: 1px solid var(--amber-light) !important;
-  color: #ffffff !important;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  padding: 0.75rem 1.75rem;
+  color: #fff !important;
+  font-weight: 700;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.7rem 1.8rem !important;
   box-shadow: 0 4px 15px var(--amber-glow);
   transition: var(--transition);
 }
 
 .btn-primary:hover,
 .btn-warning:hover {
-  background: linear-gradient(135deg, var(--amber-light) 0%, var(--amber-primary) 100%) !important;
+  background: linear-gradient(135deg, var(--amber-light), var(--amber)) !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 6px 20px rgba(245,158,11,0.35);
 }
 
 .btn-outline-secondary {
   color: var(--text-muted) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
   background: transparent !important;
-  border-radius: var(--radius-sm);
-  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.7rem 1.5rem !important;
   font-weight: 600;
   transition: var(--transition);
 }
 
 .btn-outline-secondary:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-/* Empty State */
-.text-center.py-5 {
-  background: var(--bg-surface);
-  border: 1px dashed var(--wood-border);
-  border-radius: var(--radius-lg);
-  padding: 4rem 2rem !important;
-  box-shadow: var(--shadow-md);
-}
-
-.text-center.py-5 i.fa-books,
-.text-center.py-5 i.fa-book {
-  color: var(--amber-light);
-  opacity: 0.6;
-  margin-bottom: 1.5rem;
-  filter: drop-shadow(0 0 15px var(--amber-glow));
-}
-
-.text-center.py-5 h3 {
-  color: var(--text-cream) !important;
-  font-size: 1.6rem;
-  margin-bottom: 0.75rem;
-}
-
-.text-center.py-5 p {
-  color: var(--text-muted) !important;
-  font-size: 1.05rem;
-  margin-bottom: 2rem;
+  background: rgba(255,255,255,0.07) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.26) !important;
 }
 
 /* ==========================================================================
-   Alerts & Notifications
+   Alerts
    ========================================================================== */
 
 .alert-info {
-  background: rgba(217, 119, 6, 0.15) !important;
-  border: 1px solid var(--wood-border) !important;
+  background: rgba(217,119,6,0.13) !important;
+  border: 1px solid var(--border) !important;
   color: var(--text-cream) !important;
   border-radius: var(--radius-md) !important;
 }
 
-.alert-info .btn-close {
-  filter: invert(1);
-}
+.alert-info .btn-close { filter: invert(1) opacity(0.7); }
 
 /* ==========================================================================
-   Animations
+   Scrollbar
    ========================================================================== */
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.container {
-  animation: fadeIn 0.4s ease-out;
-}
-
-/* Scrollbar Customization */
-::-webkit-scrollbar {
-  width: 9px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-main);
-}
-
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
 ::-webkit-scrollbar-thumb {
-  background: #3a2e24;
-  border-radius: 10px;
+  background: #3a2f1e;
+  border-radius: 8px;
   border: 2px solid var(--bg-main);
 }
+::-webkit-scrollbar-thumb:hover { background: var(--amber-dark); }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--amber-dark);
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .book-table { font-size: 0.88rem; }
+  .book-table thead th,
+  .book-table td { padding: 0.9rem 1rem; }
+  .book-title-text { font-size: 0.92rem; }
+  .col-author { display: none; }
+  .book-author-cell { display: none; }
+  .action-btn span { display: none; }
+  .action-btn { padding: 0.42rem 0.6rem; }
 }

@@ -16,20 +16,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('home') }}">
-                <i class="fas fa-book me-2"></i>My Book Collection
+                <i class="fas fa-book"></i>The Athenaeum
             </a>
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="{{ url_for('add') }}">
-                    <i class="fas fa-plus me-1"></i>Add Book
+                    <i class="fas fa-plus"></i>Add Book
                 </a>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
