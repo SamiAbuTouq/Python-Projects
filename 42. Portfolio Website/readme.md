@@ -1,8 +1,6 @@
 # Portfolio Website (Flask)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://portfolio-website-utgq.onrender.com/)
-
-> **Live Demo:** [https://portfolio-website-utgq.onrender.com](https://portfolio-website-utgq.onrender.com/) *(Note: Free-tier servers may take ~30-50 seconds to wake up on the first request).*
+> To try this project live, [click here](https://portfolio-website-utgq.onrender.com/) *(free-tier instances may take 30–50s to wake up).*
 
 
 A personal portfolio website built with Flask to showcase projects, skills, and credentials.

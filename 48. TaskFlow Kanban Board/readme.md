@@ -1,8 +1,6 @@
 # TaskFlow Kanban Board (Flask + SQLite)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://taskflow-kanban-board-aftw.onrender.com/)
-
-> **Live Demo:** [https://taskflow-kanban-board-aftw.onrender.com](https://taskflow-kanban-board-aftw.onrender.com/) *(Note: Free-tier servers may take ~30-50 seconds to wake up on the first request).*
+> To try this project live, [click here](https://taskflow-kanban-board-aftw.onrender.com/) *(free-tier instances may take 30–50s to wake up).*
 
 
 A Kanban-style task manager built with Flask and SQLite.

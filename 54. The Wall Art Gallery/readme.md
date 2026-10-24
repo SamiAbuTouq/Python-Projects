@@ -1,8 +1,6 @@
 # The Wall Art Gallery (Flask + REST API)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://the-wall-art-gallery.onrender.com/)
-
-> **Live Demo:** [https://the-wall-art-gallery.onrender.com](https://the-wall-art-gallery.onrender.com/) *(Note: Free-tier servers may take ~30-50 seconds to wake up on the first request).*
+> To try this project live, [click here](https://the-wall-art-gallery.onrender.com/) *(free-tier instances may take 30–50s to wake up).*
 
 
 A Flask website that displays public-domain artworks on a gallery wall.

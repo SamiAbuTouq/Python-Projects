@@ -1,8 +1,6 @@
 # Tidepool Tea Store (Flask + Stripe)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://tidepool-tea-store.onrender.com/)
-
-> **Live Demo:** [https://tidepool-tea-store.onrender.com](https://tidepool-tea-store.onrender.com/) *(Note: Free-tier servers may take ~30-50 seconds to wake up on the first request).*
+> To try this project live, [click here](https://tidepool-tea-store.onrender.com/) *(free-tier instances may take 30–50s to wake up).*
 
 
 A complete small eCommerce store built with Flask and Stripe payments.
