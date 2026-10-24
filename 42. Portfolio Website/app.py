@@ -24,17 +24,26 @@ def contact():
     name = request.form.get("name", "").strip()
     email = request.form.get("email", "").strip()
     message = request.form.get("message", "").strip()
+    is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest" or "application/json" in request.headers.get("Accept", "")
 
     if request.form.get("website"):  # honeypot: real people leave this empty
+        if is_ajax:
+            return {"status": "ok", "message": "Message sent."}
         return redirect(url_for("home"))
 
     if not name or not message or "@" not in email:
-        flash("Add your name, a valid email and a message, then send again.", "error")
+        error_msg = "Add your name, a valid email and a message, then send again."
+        if is_ajax:
+            return {"status": "error", "message": error_msg}, 400
+        flash(error_msg, "error")
     else:
         entry = {"time": datetime.now(timezone.utc).isoformat(), "name": name, "email": email, "message": message}
         with open(MESSAGES_FILE, "a", encoding="utf-8") as f:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
-        flash("Message sent. I’ll reply by email.", "ok")
+        ok_msg = "Message sent. I’ll reply by email."
+        if is_ajax:
+            return {"status": "ok", "message": ok_msg}
+        flash(ok_msg, "ok")
     return redirect(url_for("home") + "#contact")
 
 

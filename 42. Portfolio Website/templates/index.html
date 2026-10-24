@@ -88,10 +88,12 @@
       <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>.</p>
     <p class="links">{% for label, url in profile.links %}<a href="{{ url }}">{{ label }}</a>{% endfor %}</p>
   </div>
-  <form method="post" action="{{ url_for('contact') }}">
-    {% with msgs = get_flashed_messages(with_categories=true) %}
-      {% for cat, msg in msgs %}<p class="flash {{ cat }}" role="status">{{ msg }}</p>{% endfor %}
-    {% endwith %}
+  <form id="contact-form" method="post" action="{{ url_for('contact') }}">
+    <div id="flash-container">
+      {% with msgs = get_flashed_messages(with_categories=true) %}
+        {% for cat, msg in msgs %}<p class="flash {{ cat }}" role="status">{{ msg }}</p>{% endfor %}
+      {% endwith %}
+    </div>
     <label>Name <input name="name" required autocomplete="name"></label>
     <label>Email <input name="email" type="email" required autocomplete="email"></label>
     <label>Message <textarea name="message" rows="5" required></textarea></label>
@@ -99,4 +101,51 @@
     <button class="btn" type="submit">Send message</button>
   </form>
 </section>
+
+<script>
+  const contactForm = document.getElementById('contact-form');
+  const flashContainer = document.getElementById('flash-container');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+      }
+
+      const formData = new FormData(contactForm);
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.status === 'ok') {
+          flashContainer.innerHTML = `<p class="flash ok" role="status">${data.message}</p>`;
+          contactForm.reset();
+        } else {
+          flashContainer.innerHTML = `<p class="flash error" role="status">${data.message || 'Something went wrong. Please try again.'}</p>`;
+        }
+      } catch (err) {
+        flashContainer.innerHTML = `<p class="flash error" role="status">Failed to send message. Please check your connection and try again.</p>`;
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+      }
+    });
+  }
+</script>
 {% endblock %}
