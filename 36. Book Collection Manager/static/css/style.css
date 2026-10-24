@@ -415,13 +415,16 @@ body > .container {
   border: 1px solid var(--border) !important;
   border-radius: var(--radius-xl) !important;
   box-shadow: 0 16px 40px rgba(0,0,0,0.55) !important;
-  overflow: hidden;
+  overflow: visible !important;
+  position: relative;
 }
 
 .card-header {
   border-bottom: 1px solid var(--border) !important;
   padding: 1.5rem 2rem !important;
   background: #14120c !important;
+  border-top-left-radius: calc(var(--radius-xl) - 1px) !important;
+  border-top-right-radius: calc(var(--radius-xl) - 1px) !important;
 }
 
 .card-header h4 {
@@ -449,6 +452,9 @@ body > .container {
 .card-body {
   background: var(--bg-card) !important;
   padding: 2rem !important;
+  border-bottom-left-radius: calc(var(--radius-xl) - 1px) !important;
+  border-bottom-right-radius: calc(var(--radius-xl) - 1px) !important;
+  overflow: visible !important;
 }
 
 /* Form */
@@ -558,8 +564,18 @@ body > .container {
   list-style: none;
   z-index: 1050;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(245, 158, 11, 0.15);
-  overflow: hidden;
+  max-height: 280px;
+  overflow-y: auto;
   animation: dropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-select-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-select-menu::-webkit-scrollbar-thumb {
+  background: var(--amber-dark);
+  border-radius: 4px;
 }
 
 @keyframes dropdownSlide {
