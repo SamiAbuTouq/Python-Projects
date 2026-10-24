@@ -1,4 +1,4 @@
-const $ = (id) => document.getElementById(id);
+﻿const $ = (id) => document.getElementById(id);
 const drop = $("drop"), fileInput = $("file"), preview = $("preview");
 const statusEl = $("status"), rows = $("rows"), actions = $("actions");
 let palette = [];
@@ -48,8 +48,13 @@ async function handleFile(file) {
   if (!file) return;
   if (!file.type.startsWith("image/")) { setStatus("That file isn’t an image. Try a PNG, JPG, WebP or GIF.", true); return; }
 
-  preview.src = URL.createObjectURL(file);
-  preview.hidden = false;
+  // Revoke any previous blob URL to avoid memory leaks
+  if (preview.src && preview.src.startsWith('blob:')) URL.revokeObjectURL(preview.src);
+
+  const objectUrl = URL.createObjectURL(file);
+  preview.onload = () => { preview.hidden = false; };
+  preview.onerror = () => { setStatus("Couldn't display the image preview.", true); };
+  preview.src = objectUrl;
   $("dropEmpty").hidden = true;
   drop.classList.add("has-image");
   $("again").hidden = false;
