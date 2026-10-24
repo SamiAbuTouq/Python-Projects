@@ -48,13 +48,13 @@ async function handleFile(file) {
   if (!file) return;
   if (!file.type.startsWith("image/")) { setStatus("That file isn’t an image. Try a PNG, JPG, WebP or GIF.", true); return; }
 
-  // Revoke any previous blob URL to avoid memory leaks
-  if (preview.src && preview.src.startsWith('blob:')) URL.revokeObjectURL(preview.src);
-
-  const objectUrl = URL.createObjectURL(file);
-  preview.onload = () => { preview.hidden = false; };
-  preview.onerror = () => { setStatus("Couldn't display the image preview.", true); };
-  preview.src = objectUrl;
+  // Use FileReader for reliable sync-like preview (avoids onload race conditions)
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    preview.src = e.target.result;
+    preview.hidden = false;
+  };
+  reader.readAsDataURL(file);
   $("dropEmpty").hidden = true;
   drop.classList.add("has-image");
   $("again").hidden = false;
