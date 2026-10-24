@@ -6,7 +6,7 @@ This repository contains projects built during the **[100 Days of Code: The Comp
   <img src="certificate.jpg" width="85%" alt="Course Completion Certificate">
 </p>
 
-## 🌐 Live Web Apps (Deployed on Render)
+## Live Web Apps (Deployed on Render)
 
 You can explore and test the deployed full-stack web applications directly in your browser:
 
@@ -24,7 +24,7 @@ You can explore and test the deployed full-stack web applications directly in yo
 | **36** | **Book Collection Manager** | Flask, SQLAlchemy, SQLite | [![Live Demo](https://img.shields.io/badge/Live_Demo-Render-46E3B7?style=flat-square&logo=render&logoColor=white)](https://book-collection-manager-j8sl.onrender.com/) |
 | **35** | **Cafe & WiFi Finder** | Flask, CSV Data, Bootstrap | [![Live Demo](https://img.shields.io/badge/Live_Demo-Render-46E3B7?style=flat-square&logo=render&logoColor=white)](https://cafe-and-wifi-finder.onrender.com/cafes) |
 
-> ⏳ *Note: Free-tier servers on Render automatically spin down during inactivity and may take around 30–50 seconds to wake up on the first request.*
+> *Note: Free-tier servers on Render automatically spin down during inactivity and may take around 30–50 seconds to wake up on the first request.*
 
 ## Projects
 Each project is a practical exercise or mini-application, organized in its own folder with a dedicated `README.md` explaining its purpose and functionality. Together they cover scripting, automation, web development, APIs, databases, authentication, and GUI applications.
