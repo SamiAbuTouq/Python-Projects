@@ -72,31 +72,39 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
    ========================================================================== */
 
 .navbar {
-  background: rgba(17, 16, 9, 0.92) !important;
+  background: rgba(17, 16, 9, 0.94) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  padding: 0.9rem 0;
+  padding: 0.35rem 0 !important;
+  min-height: 54px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.5);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
+.navbar .container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  animation: none !important;
+}
+
 .navbar-brand {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-cream) !important;
   letter-spacing: 0.8px;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
+  padding: 0.2rem 0;
   transition: var(--transition);
 }
 
 .navbar-brand i {
   color: var(--amber-light);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   filter: drop-shadow(0 0 7px var(--amber-glow));
   transition: var(--transition);
 }
@@ -108,8 +116,8 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 .nav-link {
   color: var(--text-cream) !important;
   font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.5rem 1.15rem !important;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem !important;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-hover);
   background: var(--amber-subtle);
@@ -134,7 +142,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
    Container spacing
    ========================================================================== */
 
-.container {
+body > .container {
   padding-top: 2rem;
   padding-bottom: 3rem;
   animation: fadeUp 0.35s ease-out;
@@ -481,6 +489,123 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
   color: var(--text-muted) !important;
   font-size: 0.83rem;
   margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   Custom Dropdown (replaces native select)
+   ========================================================================== */
+
+.custom-select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  color: var(--text-white);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.15rem;
+  font-size: 0.98rem;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  text-align: left;
+}
+
+.custom-select-trigger:hover {
+  border-color: var(--amber);
+  background-color: #1a160f;
+}
+
+.custom-select-wrap.active .custom-select-trigger {
+  border-color: var(--amber-light);
+  box-shadow: 0 0 0 4px var(--amber-glow);
+  background-color: #1e1910;
+}
+
+.custom-select-trigger .placeholder-text {
+  color: var(--text-dim);
+}
+
+.custom-select-trigger .caret {
+  color: var(--amber-light);
+  font-size: 0.85rem;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.custom-select-wrap.active .caret {
+  transform: rotate(180deg);
+}
+
+.custom-select-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #1c1811;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 0;
+  margin: 0;
+  list-style: none;
+  z-index: 1050;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(245, 158, 11, 0.15);
+  overflow: hidden;
+  animation: dropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-select-menu.open {
+  display: block;
+}
+
+.custom-select-menu li {
+  padding: 0.8rem 1.25rem;
+  color: var(--text-cream);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.custom-select-menu li:hover {
+  background: rgba(217, 119, 6, 0.16);
+  color: var(--amber-bright);
+  padding-left: 1.5rem;
+}
+
+.custom-select-menu li.selected {
+  background: rgba(217, 119, 6, 0.24);
+  color: var(--amber-bright);
+  font-weight: 700;
+}
+
+.custom-select-menu li.selected::after {
+  content: "✓";
+  margin-left: auto;
+  color: var(--amber-light);
+  font-weight: 800;
+  font-size: 0.95rem;
 }
 
 /* Book info box on edit page */

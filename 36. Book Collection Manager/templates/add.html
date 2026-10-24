@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Add New Book - My Book Collection{% endblock %}
+{% block title %}Add New Book - The Athenaeum{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -12,35 +12,44 @@
                 </h4>
             </div>
             <div class="card-body p-4">
-                <form method="POST">
+                <form method="POST" id="addForm">
                     <div class="mb-3">
                         <label for="title" class="form-label fw-bold">Book Title</label>
-                        <input type="text" class="form-control form-control-lg" id="title" name="title" 
+                        <input type="text" class="form-control form-control-lg" id="title" name="title"
                                placeholder="Enter book title" required>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="author" class="form-label fw-bold">Author</label>
-                        <input type="text" class="form-control form-control-lg" id="author" name="author" 
+                        <input type="text" class="form-control form-control-lg" id="author" name="author"
                                placeholder="Enter author name" required>
                     </div>
-                    
+
                     <div class="mb-4">
-                        <label for="rating" class="form-label fw-bold">Rating</label>
-                        <select class="form-select form-select-lg" id="rating" name="rating" required>
-                            <option value="" selected disabled>Select a rating</option>
-                            {% for i in range(1, 6) %}
-                                <option value="{{ i }}">{{ i }} - {{ [ 'Poor', 'Fair', 'Average', 'Good', 'Excellent'][i-1] }}</option>
-                            {% endfor %}
-                        </select>
-                        <div class="form-text">Rate the book from 1 (Very Poor) to 5 (Excellent)</div>
+                        <label class="form-label fw-bold">Rating</label>
+                        <!-- Custom dropdown — replaces native <select> -->
+                        <input type="hidden" name="rating" id="rating-value" required>
+                        <div class="custom-select-wrap" id="ratingDropdown">
+                            <button type="button" class="custom-select-trigger" onclick="toggleDropdown()">
+                                <span id="ratingLabel" class="placeholder-text">Select a rating</span>
+                                <i class="fas fa-chevron-down caret"></i>
+                            </button>
+                            <ul class="custom-select-menu" id="ratingMenu">
+                                <li data-value="1" onclick="selectRating(1, '⭐ 1 — Poor')">⭐ 1 — Poor</li>
+                                <li data-value="2" onclick="selectRating(2, '⭐⭐ 2 — Fair')">⭐⭐ 2 — Fair</li>
+                                <li data-value="3" onclick="selectRating(3, '⭐⭐⭐ 3 — Average')">⭐⭐⭐ 3 — Average</li>
+                                <li data-value="4" onclick="selectRating(4, '⭐⭐⭐⭐ 4 — Good')">⭐⭐⭐⭐ 4 — Good</li>
+                                <li data-value="5" onclick="selectRating(5, '⭐⭐⭐⭐⭐ 5 — Excellent')">⭐⭐⭐⭐⭐ 5 — Excellent</li>
+                            </ul>
+                        </div>
+                        <div class="form-text">Rate the book from 1 (Poor) to 5 (Excellent)</div>
                     </div>
-                    
+
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ url_for('home') }}" class="btn btn-outline-secondary me-md-2">
                             <i class="fas fa-arrow-left me-1"></i>Cancel
                         </a>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" onclick="return validateRating()">
                             <i class="fas fa-save me-1"></i>Add Book
                         </button>
                     </div>
@@ -49,4 +58,47 @@
         </div>
     </div>
 </div>
+
+<script>
+function toggleDropdown() {
+    const menu = document.getElementById('ratingMenu');
+    const wrap = document.getElementById('ratingDropdown');
+    menu.classList.toggle('open');
+    wrap.classList.toggle('active');
+}
+
+function selectRating(val, label) {
+    document.getElementById('rating-value').value = val;
+    const labelEl = document.getElementById('ratingLabel');
+    labelEl.textContent = label;
+    labelEl.classList.remove('placeholder-text');
+    labelEl.style.color = '#f5f0e8';
+    
+    document.querySelector('.custom-select-trigger').style.borderColor = '';
+    
+    document.querySelectorAll('#ratingMenu li').forEach(li => li.classList.remove('selected'));
+    const selectedItem = document.querySelector(`#ratingMenu li[data-value="${val}"]`);
+    if (selectedItem) selectedItem.classList.add('selected');
+    
+    document.getElementById('ratingMenu').classList.remove('open');
+    document.getElementById('ratingDropdown').classList.remove('active');
+}
+
+function validateRating() {
+    const val = document.getElementById('rating-value').value;
+    if (!val) {
+        document.querySelector('.custom-select-trigger').style.borderColor = '#ef4444';
+        return false;
+    }
+    return true;
+}
+
+document.addEventListener('click', function(e) {
+    const wrap = document.getElementById('ratingDropdown');
+    if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('ratingMenu').classList.remove('open');
+        wrap.classList.remove('active');
+    }
+});
+</script>
 {% endblock %}

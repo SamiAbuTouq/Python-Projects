@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Edit Rating - My Book Collection{% endblock %}
+{% block title %}Edit Rating - The Athenaeum{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -14,29 +14,45 @@
             <div class="card-body p-4">
                 <div class="book-info mb-4">
                     <h5 class="mb-2">{{ book.title }}</h5>
-                    <p class="mb-0 text-muted">by {{ book.author }}</p>
+                    <p class="mb-0">by {{ book.author }}</p>
                 </div>
                 
-                <form method="POST">
+                <form method="POST" id="editForm">
                     <input type="hidden" name="id" value="{{ book.id }}">
                     
                     <div class="mb-4">
-                        <label for="rating" class="form-label fw-bold">New Rating</label>
-                        <select class="form-select form-select-lg" id="rating" name="rating" required>
-                            {% for i in range(1, 6) %}
-                                <option value="{{ i }}" {% if i == book.rating %}selected{% endif %}>
-                                    {{ i }} - {{ ['Poor', 'Fair', 'Average', 'Good', 'Excellent'][i-1] }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <div class="form-text">Current rating: {{ "%.1f"|format(book.rating) }}</div>
+                        <label class="form-label fw-bold">New Rating</label>
+                        <!-- Custom dropdown -->
+                        <input type="hidden" name="rating" id="rating-value" value="{{ book.rating|int }}" required>
+                        <div class="custom-select-wrap" id="ratingDropdown">
+                            <button type="button" class="custom-select-trigger" onclick="toggleDropdown()">
+                                <span id="ratingLabel">
+                                    {% set r = book.rating|int %}
+                                    {% if r == 1 %}⭐ 1 — Poor
+                                    {% elif r == 2 %}⭐⭐ 2 — Fair
+                                    {% elif r == 3 %}⭐⭐⭐ 3 — Average
+                                    {% elif r == 4 %}⭐⭐⭐⭐ 4 — Good
+                                    {% elif r == 5 %}⭐⭐⭐⭐⭐ 5 — Excellent
+                                    {% else %}Select a rating{% endif %}
+                                </span>
+                                <i class="fas fa-chevron-down caret"></i>
+                            </button>
+                            <ul class="custom-select-menu" id="ratingMenu">
+                                <li data-value="1" class="{% if book.rating|int == 1 %}selected{% endif %}" onclick="selectRating(1, '⭐ 1 — Poor')">⭐ 1 — Poor</li>
+                                <li data-value="2" class="{% if book.rating|int == 2 %}selected{% endif %}" onclick="selectRating(2, '⭐⭐ 2 — Fair')">⭐⭐ 2 — Fair</li>
+                                <li data-value="3" class="{% if book.rating|int == 3 %}selected{% endif %}" onclick="selectRating(3, '⭐⭐⭐ 3 — Average')">⭐⭐⭐ 3 — Average</li>
+                                <li data-value="4" class="{% if book.rating|int == 4 %}selected{% endif %}" onclick="selectRating(4, '⭐⭐⭐⭐ 4 — Good')">⭐⭐⭐⭐ 4 — Good</li>
+                                <li data-value="5" class="{% if book.rating|int == 5 %}selected{% endif %}" onclick="selectRating(5, '⭐⭐⭐⭐⭐ 5 — Excellent')">⭐⭐⭐⭐⭐ 5 — Excellent</li>
+                            </ul>
+                        </div>
+                        <div class="form-text">Current rating: {{ "%.1f"|format(book.rating) }} / 5.0</div>
                     </div>
                     
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ url_for('home') }}" class="btn btn-outline-secondary me-md-2">
                             <i class="fas fa-arrow-left me-1"></i>Cancel
                         </a>
-                        <button type="submit" class="btn btn-warning">
+                        <button type="submit" class="btn btn-warning" onclick="return validateRating()">
                             <i class="fas fa-save me-1"></i>Update Rating
                         </button>
                     </div>
@@ -45,4 +61,44 @@
         </div>
     </div>
 </div>
+
+<script>
+function toggleDropdown() {
+    const menu = document.getElementById('ratingMenu');
+    const wrap = document.getElementById('ratingDropdown');
+    menu.classList.toggle('open');
+    wrap.classList.toggle('active');
+}
+
+function selectRating(val, label) {
+    document.getElementById('rating-value').value = val;
+    const labelEl = document.getElementById('ratingLabel');
+    labelEl.textContent = label;
+    labelEl.style.color = '#f5f0e8';
+    
+    document.querySelectorAll('#ratingMenu li').forEach(li => li.classList.remove('selected'));
+    const selectedItem = document.querySelector(`#ratingMenu li[data-value="${val}"]`);
+    if (selectedItem) selectedItem.classList.add('selected');
+    
+    document.getElementById('ratingMenu').classList.remove('open');
+    document.getElementById('ratingDropdown').classList.remove('active');
+}
+
+function validateRating() {
+    const val = document.getElementById('rating-value').value;
+    if (!val) {
+        document.querySelector('.custom-select-trigger').style.borderColor = '#ef4444';
+        return false;
+    }
+    return true;
+}
+
+document.addEventListener('click', function(e) {
+    const wrap = document.getElementById('ratingDropdown');
+    if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('ratingMenu').classList.remove('open');
+        wrap.classList.remove('active');
+    }
+});
+</script>
 {% endblock %}
